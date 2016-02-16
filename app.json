@@ -7,7 +7,7 @@
   "keywords": ["crystal", "github"],
   "buildpacks": [
     {
-      "url": "https://github.com/zamith/heroku-buildpack-crystal"
+      "url": "https://github.com/ukd1/heroku-buildpack-crystal"
     }
   ],
   "env": {
