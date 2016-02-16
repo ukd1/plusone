@@ -1,0 +1,14 @@
+version: 1.0
+shards:
+  kemal:
+    github: sdogruyol/kemal
+    version: 0.9.0
+
+  radix:
+    github: luislavena/radix
+    version: 0.1.0
+
+  redis:
+    github: stefanwille/crystal-redis
+    version: 1.3.1
+

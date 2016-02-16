@@ -1,0 +1,33 @@
+
+{
+  "name": "plusone",
+  "description": "+1 badge server",
+  "website": "https://github.com/ukd1/plusone",
+  "repository": "https://github.com/ukd1/plusone",
+  "keywords": ["crystal", "github"],
+  "buildpacks": [
+    {
+      "url": "https://github.com/zamith/heroku-buildpack-crystal"
+    }
+  ],
+  "env": {
+    "HMAC_SECRET": {
+      "description": "A secret key for verifying the integrity of signed urls.",
+      "generator": "secret",
+      "required": true
+    },
+    "HTTP_USERNAME": {
+      "description": "Admin username",
+      "value": "admin",
+      "required": true
+    },
+    "HTTP_PASSWORD": {
+      "description": "Admin password",
+      "required": true
+    }
+  },
+  "success_url": "/",
+  "addons": [
+    "heroku-redis"
+  ]
+}
