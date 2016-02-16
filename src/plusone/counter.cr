@@ -1,7 +1,11 @@
 module Plusone
   class Counter
-    def initialize(repo, issue = nil)
-      @repo, @issue = repo, issue
+    def initialize(repo, issue_number = nil)
+      @repo, @issue_number = repo, issue_number
+    end
+
+    def set_issue_number(issue_number)
+      @issue_number = issue_number
     end
 
     def incr(user_id)
@@ -21,7 +25,7 @@ module Plusone
     end
 
     private def redis_key
-      "p1:#{@repo}:#{@issue}"
+      "p1:#{@repo}:#{@issue_number}"
     end
   end
 end

@@ -103,6 +103,7 @@ module Plusone
       json = JSON.parse(context.request.body.to_s)
       if counter.injest_signature == sig
         if json["action"].to_s == "created" && json["comment"]["body"].to_s.includes?("+1")
+          counter.set_issue_number(json["issue"]["number"])
           counter.incr(json["comment"]["user"]["id"])
         elsif json["action"].to_s == "created"
           logger.write("Comment doesn't have +1: #{json["comment"]["body"]}")
