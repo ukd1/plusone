@@ -29,7 +29,8 @@ end
 BASIC                 = "Basic"
 AUTH                  = "Authorization"
 AUTH_MESSAGE          = "Please check your username and password. If you're stuck or want to know what this is, checkout: <a href=https://github.com/ukd1/plusone>+1 source code</a>"
-HEADER_LOGIN_REQUIRED = "Basic realm=\"Login Required\""  
+HEADER_LOGIN_REQUIRED = "Basic realm=\"Login Required\""
+
 def authed?(context, username, password)
   authed = false
   if context.request.headers[AUTH]?
@@ -48,12 +49,11 @@ def authed?(context, username, password)
   return false
 end
 
-
 get "/" do |context|
   if authed?(context, ENV["HTTP_USERNAME"], ENV["HTTP_PASSWORD"])
     repo = context.params.fetch("repo", "") as String
     issue = context.params.fetch("issue", "") as String
-    
+
     instructions = ""
 
     if repo != "" && issue != ""
@@ -107,7 +107,7 @@ get "/" do |context|
         </body>
         </html>
     HTML
-    
+
     template
   end
 end
@@ -121,12 +121,14 @@ post "/injest" do |env|
     if valid_key?("injest/#{repo}", sig)
       if json["action"].to_s == "created" && json["comment"]["body"].to_s.includes?("+1")
         incr_count(json["repository"]["full_name"], json["issue"]["number"], json["comment"]["user"]["id"])
+      elsif json["action"].to_s == "created"
+        logger.write("Comment doesn't have +1: #{json["comment"]["body"]}")
       else
         logger.write("Ignoring events: #{json.inspect}")
       end
     else
       # Invalid signature. Write a valid one to the log so admin can set it up.
-    key = redis_key(json["repository"]["full_name"], json["issue"]["number"])
+      key = redis_key(json["repository"]["full_name"], json["issue"]["number"])
       "Invalid signature."
     end
   else
