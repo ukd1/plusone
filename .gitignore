@@ -1,6 +1,6 @@
-/.shards/
-/.deps/
+/doc/
 /libs/
 /.crystal/
-/doc/
-/app
+/.shards/
+
+

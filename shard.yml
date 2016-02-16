@@ -1,6 +1,8 @@
 name: shards
 version: 0.1.0
 license: MIT
+authors:
+  - Russell Smith <russ@rainforestqa.com>
 
 dependencies:
   kemal:
